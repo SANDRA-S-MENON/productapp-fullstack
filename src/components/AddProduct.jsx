@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import NavBar from './NavBar'
+import axios from 'axios'
 
 const AddProduct = () => {
     const [data,changeData]=useState(
+
         {
             "name":"",
         "id":"",
         "description":"",
-        "expirydate":"",
+        "expirydate":""
         }
     )
     const inputHandler =(event)=>{
@@ -16,6 +18,18 @@ const AddProduct = () => {
     }
     const readvalue=()=>{
         console.log(data)
+        axios.post("http://localhost:8180/add",data).then(
+            (response)=>{
+                console.log(response.data)
+                if (response.data.status=="success") {
+                    alert("success")
+                    
+                } else {
+                    alert("error")
+                    
+                }
+            }
+        ).catch()
     }
   return (
     <div>
